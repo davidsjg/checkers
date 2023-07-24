@@ -245,7 +245,6 @@ function App() {
       } 
       if(curChecker - moveTo === -14 || curChecker - moveTo === -18){
         // alert('valid move')
-        console.log('xx backwards')
         console.log(checkNum)
         jumpXX(checkNum)
         return;
@@ -309,26 +308,26 @@ function App() {
       } 
     }
 
-    if(firstSymbol === 'O' && symbol === 'X'){
-        overTakeO(checkNum)
-    }
+    // if(firstSymbol === 'O' && symbol === 'X'){
+    //     overTakeO(checkNum)
+    // }
 
-    if(firstSymbol === 'X' && symbol === 'O'){
-        overTakeX(checkNum)
-    }
+    // if(firstSymbol === 'X' && symbol === 'O'){
+    //     overTakeX(checkNum)
+    // }
 
-    if(firstSymbol === 'XX' && symbol ==='O'){
-      overTakeX(checkNum)
-    }
+    // if(firstSymbol === 'XX' && symbol ==='O'){
+    //   overTakeX(checkNum)
+    // }
     if((firstSymbol === 'XX' && symbol ==='b') && (color !== 'black')){
       swapNums(checkNum)
     }
     if((firstSymbol === 'XX' && symbol ==='b') && (color === 'black')){
       alert('please pick a valid move')
     }
-    if(firstSymbol === 'OO' && symbol ==='X'){
-      overTakeO(checkNum)
-    }
+    // if(firstSymbol === 'OO' && symbol ==='X'){
+    //   overTakeO(checkNum)
+    // }
     if((firstSymbol === 'OO' && symbol ==='b') && (color !== 'black')){
       swapNums(checkNum)
     }
@@ -476,6 +475,39 @@ function App() {
     console.log(newArr[tempNum])
       
     setOhArray(oldArray => [...oldArray, 'O'])
+    setMasterArray(newArr);
+    setClickCounter(0);
+    setExTurn((turn) => !turn)
+    setOhTurn((turn) => !turn)
+  }
+  function jumpXX(checkNum) {
+    var tempNum;
+
+    console.log(curChecker)
+    console.log(checkNum)
+
+    if(curChecker - checkNum === 14){
+      tempNum = curChecker - 7;
+    }
+    if(curChecker - checkNum === 18){
+      tempNum = curChecker - 9;
+    }
+    if(checkNum - curChecker === 14){
+      tempNum = curChecker + 7;
+    }
+    if(checkNum - curChecker === 18){
+      tempNum = curChecker + 9;
+    }
+
+    let newArr = [...masterArray]
+    newArr[curChecker] = ' ';
+    console.log(tempNum)
+    newArr[tempNum] = ' '
+    newArr[checkNum] = 'OO';
+
+    console.log(newArr[tempNum])
+      
+    setExArray(oldArray => [...oldArray, 'X'])
     setMasterArray(newArr);
     setClickCounter(0);
     setExTurn((turn) => !turn)
