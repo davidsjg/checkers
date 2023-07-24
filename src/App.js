@@ -21,6 +21,9 @@ function App() {
  ]);
  const [exArray, setExArray] = useState([]);
  const [ohArray, setOhArray] = useState([]);
+ const [exTurn, setExTurn] = useState(true)
+ const [ohTurn, setOhTurn] = useState(false)
+ const [turnCount, setTurnCount] = useState();
 
 //   const masterArray = ['','O',' ','O',' ','O',' ','O', 
 //   'O',' ','O',' ','O',' ', 'O', ' ', 
@@ -37,6 +40,8 @@ function App() {
     setCurChecker(curChecker)
     setFutureChecker(futureChecker)
     setClickCounter(clickCounter)
+    // setOhTurn((turn) => !turn)
+    // setExTurn((turn) => !turn)
   }, [masterArray, curChecker, futureChecker, clickCounter, exArray, ohArray]);
 
   
@@ -54,7 +59,14 @@ function App() {
 
   function xClick(checkNum, color){
 
+
+
       if(clickCounter === 0){
+        if(ohTurn){
+          alert('not your turn!')
+          resetClick()
+          return;
+        }
         console.log('first click');
         setCurChecker(checkNum)
         setFirstSymbol('X')
@@ -71,7 +83,14 @@ function App() {
 
   function oClick(checkNum, color){
 
+
+
     if(clickCounter === 0){
+      if(exTurn){
+        alert('not your turn!')
+        resetClick()
+        return
+      }
       console.log('first click');
       setCurChecker(checkNum)
       setFirstSymbol('O')
@@ -230,6 +249,8 @@ function App() {
     setMasterArray(newArr);
 
     setClickCounter(0);
+    setExTurn((turn) => !turn)
+    setOhTurn((turn) => !turn)
   }
 
   function resetClick(){
@@ -262,6 +283,8 @@ function App() {
     setMasterArray(newArr);
 
     setClickCounter(0);
+    setExTurn((turn) => !turn)
+    setOhTurn((turn) => !turn)
   }
 
   function overTakeX(checkNum){
@@ -288,6 +311,8 @@ function App() {
     setMasterArray(newArr);
 
     setClickCounter(0);
+    setExTurn((turn) => !turn)
+    setOhTurn((turn) => !turn)
   }
 
 
@@ -304,6 +329,9 @@ function App() {
 
   return (
     <>
+    <div className='turn'>
+      It is {ohTurn ? 'Os turn' : 'Xs turn'}'s turn
+    </div>
     <div className='mainContain' >
       <div className='oPieces'>
         {dispBlackPieces}
