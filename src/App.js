@@ -7,7 +7,7 @@ function App() {
 
   const [myCount, setMyCount] = useState();
   
-  const masterArray = ['🌙','O',' ','O',' ','O',' ','O', 
+  const masterArray = ['','O',' ','O',' ','O',' ','O', 
                        'O',' ','O',' ','O',' ', 'O', ' ', 
                        ' ','O',' ','O',' ','O',' ','O',' ',
                        ' ',' ',' ',' ',' ',' ',' ', 
@@ -27,7 +27,13 @@ function App() {
 
   const binArray = [0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,]
 
+  function xClick(e){
+    alert('hello x')
+  }
 
+  function oClick(e){
+    alert('hello o')
+  }
 
 
   return (
@@ -36,11 +42,11 @@ function App() {
       <div className='mainContain2'>
 
         {masterArr.map((check) => {
-          console.log(masterArr[check]);
+          // console.log(check)
           return (
             <>
-              <div className='testCheck'>
-                <Checker check={check} symbol={masterArray[check]} bin={binArray[check]}/>
+              <div className='testCheck' key={check}>
+                <Checker key={check} xClick={xClick} oClick={oClick} check={check} symbol={masterArray[check]} bin={binArray[check]}/>
               </div>
             </>
             )
