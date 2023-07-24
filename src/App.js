@@ -19,6 +19,8 @@ function App() {
                                                 ' ','X',' ','X','','X',' ', 'X',
                                                 'X',' ','X',' ','X',' ','X', ' '
  ]);
+ const [exArray, setExArray] = useState([]);
+ const [ohArray, setOhArray] = useState([]);
 
 //   const masterArray = ['','O',' ','O',' ','O',' ','O', 
 //   'O',' ','O',' ','O',' ', 'O', ' ', 
@@ -51,11 +53,7 @@ function App() {
   const binArray = [0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,]
 
   function xClick(checkNum, color){
-    console.log(color)
-      // alert('hello x')
-      console.log(checkNum);
-      console.log(clickCounter)
-      
+
       if(clickCounter === 0){
         console.log('first click');
         setCurChecker(checkNum)
@@ -71,18 +69,20 @@ function App() {
 
   }
 
-  function oClick(checkNum){
+  function oClick(checkNum, color){
 
-      // alert('hello o')
-      if(clickCounter === 0){
-        console.log('first click');
-        setClickCounter(1)
-      } else if (clickCounter === 1){
-        alert('please click a valid moves')
-      }
-      checkSquares('O')
+    if(clickCounter === 0){
+      console.log('first click');
+      setCurChecker(checkNum)
+      setFirstSymbol('O')
+      setClickCounter(1);
 
-      console.log(checkNum);
+    } else if (clickCounter === 1){
+      console.log('second click');
+      console.log(checkNum)
+      setFutureChecker(checkNum)
+      checkSquares('O', checkNum, color);
+    }
 
   }
 
@@ -114,7 +114,7 @@ function App() {
     // console.log(masterArray[curChecker])
     // console.log(masterArray[checkNum])
     // console.log(curSym === futureSym)
-    if(firstSymbol === 'X' && symbol === 'X'){
+    if((firstSymbol === 'X' && symbol === 'X') || (firstSymbol === 'O' && symbol === 'O')){
       console.log('inside double x')
       alert('please make a valid move')
       swapNums(checkNum)
@@ -128,7 +128,7 @@ function App() {
     }
     if (firstSymbol === 'X' && symbol === 'b'){
       if(curChecker - moveTo === 7 || curChecker - moveTo === 9){
-        alert('valid move')
+        // alert('valid move')
         swapNums(checkNum)
         //they clicked 2 buttons, now have both values (where they start and where they want to go)
         //checker numbers also represent index in array
@@ -143,6 +143,35 @@ function App() {
         resetClick()
       } 
     }
+
+    if (firstSymbol === 'O' && symbol === 'b'){
+      if(moveTo - curChecker === 7 || moveTo - curChecker === 9){
+        // alert('valid move')
+        swapNums(checkNum)
+        //they clicked 2 buttons, now have both values (where they start and where they want to go)
+        //checker numbers also represent index in array
+        //compare the checker numbers, if its a valid move, 
+      } 
+      if(moveTo < curChecker){
+        alert('please pick a valid move')
+        resetClick()
+      } 
+      if(moveTo > curChecker && color === 'black'){
+        alert('please pick a valid move')
+        resetClick()
+      } 
+    }
+
+    if(firstSymbol === 'O' && symbol === 'X'){
+        overTakeO(checkNum)
+    }
+
+    if(firstSymbol === 'X' && symbol === 'O'){
+        overTakeX(checkNum)
+    }
+
+
+
 
 
   }
@@ -167,11 +196,58 @@ function App() {
     setClickCounter(0);
   }
 
+  function overTakeO(checkNum){
+    //destination = X
+    const destination = checkNum;
+    const location = curChecker;
+    let newArr = [...masterArray]
+
+    //temp = checker# value in array at curChecker
+    let temp = newArr[destination];
+    newArr[destination] = newArr[location];
+    newArr[location] = ' ';
+    exArray.push('X');
+
+    setMasterArray(newArr);
+
+    setClickCounter(0);
+  }
+
+  function overTakeX(checkNum){
+    //destination = X
+    const destination = checkNum;
+    const location = curChecker;
+    let newArr = [...masterArray]
+
+    //temp = checker# value in array at curChecker
+    let temp = newArr[destination];
+    newArr[destination] = newArr[location];
+    newArr[location] = ' ';
+
+    let tempOarr = [];
+    tempOarr.push('O');
+    setOhArray(tempOarr);
+
+    setMasterArray(newArr);
+
+    setClickCounter(0);
+  }
+
+  console.log(exArray)
+
+  const dispBlackPieces = exArray.map((piece) =>
+      <>
+        {piece}
+      </>
+    )
 
   return (
     <>
-    <div className='mainContain' key={Math.random()} >
-      <div className='mainContain2' key={Math.random()} >
+    <div className='mainContain' >
+      <div className='oPieces'>
+        {dispBlackPieces}
+      </div>
+      <div className='mainContain2' >
 
         {masterArr.map((check, i) => {
           // console.log(check)
@@ -185,7 +261,15 @@ function App() {
           })
         }
       </div>
+      <div className='xPieces'>
+        {ohArray.map((piece) => {
+          return (
+            {piece}
+          )
+        })}
+      </div>
     </div>
+
 
     </>
   );
