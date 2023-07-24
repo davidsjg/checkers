@@ -183,6 +183,23 @@ function App() {
         resetClick()
       } 
     }
+    if (firstSymbol === 'X' && symbol === 'b'){
+      if(curChecker - moveTo === 14 || curChecker - moveTo === 18){
+        // alert('valid move')
+        jump(checkNum)
+        //they clicked 2 buttons, now have both values (where they start and where they want to go)
+        //checker numbers also represent index in array
+        //compare the checker numbers, if its a valid move, 
+      } 
+      if(moveTo > curChecker){
+        alert('please pick a valid move')
+        resetClick()
+      } 
+      if(moveTo < curChecker && color === 'black'){
+        alert('please pick a valid move')
+        resetClick()
+      } 
+    }
 
     if (firstSymbol === 'O' && symbol === 'b'){
       if(moveTo - curChecker === 7 || moveTo - curChecker === 9){
@@ -248,6 +265,34 @@ function App() {
 
     setMasterArray(newArr);
 
+    setClickCounter(0);
+    setExTurn((turn) => !turn)
+    setOhTurn((turn) => !turn)
+  }
+
+  function jump(checkNum){
+    var tempNum;
+
+    if(curChecker - checkNum === 14){
+      tempNum = curChecker - 7;
+    }
+    if(curChecker - checkNum === 18){
+      tempNum = curChecker - 9;
+    }
+
+    console.log(checkNum)
+    console.log(curChecker)
+
+    console.log(tempNum)
+
+    let newArr = [...masterArray]
+
+    let temp = newArr[curChecker];
+    newArr[curChecker] = ' ';
+    newArr[tempNum] = ' '
+    newArr[checkNum] = 'X';
+    setOhArray(oldArray => [...oldArray, 'O'])
+    setMasterArray(newArr);
     setClickCounter(0);
     setExTurn((turn) => !turn)
     setOhTurn((turn) => !turn)
