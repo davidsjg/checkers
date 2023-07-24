@@ -50,79 +50,98 @@ function App() {
 
   const binArray = [0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,]
 
-  function xClick(checkNum){
-    // alert('hello x')
-    console.log(checkNum);
-    console.log(clickCounter)
-    
-    if(clickCounter === 0){
-      console.log('first click');
-      setCurChecker(checkNum)
-      setFirstSymbol('X')
-      setClickCounter(1);
+  function xClick(checkNum, color){
+    console.log(color)
+      // alert('hello x')
+      console.log(checkNum);
+      console.log(clickCounter)
+      
+      if(clickCounter === 0){
+        console.log('first click');
+        setCurChecker(checkNum)
+        setFirstSymbol('X')
+        setClickCounter(1);
 
-    } else if (clickCounter === 1){
-      console.log('second click');
-      console.log(checkNum)
-      setFutureChecker(checkNum)
-      checkSquares('X', checkNum);
-    }
+      } else if (clickCounter === 1){
+        console.log('second click');
+        console.log(checkNum)
+        setFutureChecker(checkNum)
+        checkSquares('X', checkNum, color);
+      }
+
   }
 
   function oClick(checkNum){
-    // alert('hello o')
-    if(clickCounter === 0){
-      console.log('first click');
-      setClickCounter(1)
-    } else if (clickCounter === 1){
-      alert('please click a valid moves')
-    }
-    checkSquares('O')
 
-    console.log(checkNum);
+      // alert('hello o')
+      if(clickCounter === 0){
+        console.log('first click');
+        setClickCounter(1)
+      } else if (clickCounter === 1){
+        alert('please click a valid moves')
+      }
+      checkSquares('O')
+
+      console.log(checkNum);
+
   }
 
-  function blankClick(checkNum){
+  function blankClick(checkNum, color){
+
+    console.log(checkNum);
+    console.log(clickCounter)
+
+    var symbol = 'b'
+
     if(clickCounter === 0){
       console.log('first click');
       setClickCounter(0);
       alert('please click one of your players')
     } else if (clickCounter === 1){
       console.log('second click - in blank');
-      // console.log(checkNum)
-      setFutureChecker(checkNum)
-      checkSquares(checkNum);
+      checkSquares(symbol, checkNum, color);
     }
-    var symbol = ' '
-    checkSquares(symbol, checkNum)
 
-    // console.log(checkNum);
   }
 
-  function checkSquares(symbol, checkNum){
-    console.log(symbol);
-    console.log(curChecker);
+  function checkSquares(symbol, checkNum, color){
+
     var moveTo = checkNum;
     var curSym = symbol;
     var futureSym = checkNum;
+    var tempColor = color;
 
-    console.log(masterArray[curChecker])
-    console.log(masterArray[checkNum])
-    console.log(curSym === futureSym)
+    // console.log(masterArray[curChecker])
+    // console.log(masterArray[checkNum])
+    // console.log(curSym === futureSym)
     if(firstSymbol === 'X' && symbol === 'X'){
       console.log('inside double x')
       alert('please make a valid move')
       swapNums(checkNum)
     }
-
-    if (firstSymbol === 'X' && symbol === ' '){
+    console.log(color)
+    console.log(symbol)
+    console.log(moveTo)
+    console.log(curChecker)
+    if(color === 'black'){
+      console.log('hello black')
+    }
+    if (firstSymbol === 'X' && symbol === 'b'){
       if(curChecker - moveTo === 7 || curChecker - moveTo === 9){
         alert('valid move')
         swapNums(checkNum)
         //they clicked 2 buttons, now have both values (where they start and where they want to go)
         //checker numbers also represent index in array
         //compare the checker numbers, if its a valid move, 
-      }
+      } 
+      if(moveTo > curChecker){
+        alert('please pick a valid move')
+        resetClick()
+      } 
+      if(moveTo < curChecker && color === 'black'){
+        alert('please pick a valid move')
+        resetClick()
+      } 
     }
 
 
@@ -151,15 +170,15 @@ function App() {
 
   return (
     <>
-    <div className='mainContain'>
-      <div className='mainContain2'>
+    <div className='mainContain' key={Math.random()} >
+      <div className='mainContain2' key={Math.random()} >
 
-        {masterArr.map((check) => {
+        {masterArr.map((check, i) => {
           // console.log(check)
           return (
             <>
-              <div className='testCheck' key={check}>
-                <Checker key={check} xClick={xClick} oClick={oClick} blank={blankClick} check={check} symbol={masterArray[check]} bin={binArray[check]}/>
+              <div className='testCheck' key={Math.random()}>
+                <Checker key={Math.random()}  xClick={xClick} oClick={oClick} blank={blankClick} check={check} symbol={masterArray[check]} bin={binArray[check]}/>
               </div>
             </>
             )

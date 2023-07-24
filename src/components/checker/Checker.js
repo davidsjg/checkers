@@ -23,22 +23,21 @@ function Checker(props) {
     //this is number need to send to xClick and oClick
     // console.log(checkNum)
     //know its an x
-    console.log(checkNum)
-    console.log(e.target.id)
+    let tempClass = e.target.className;
     if(props.symbol === 'X'){
-      props.xClick(checkNum);
+      props.xClick(checkNum, tempClass);
     } else if (props.symbol === 'O'){ 
-      props.oClick(e, checkNum);
+      props.oClick(checkNum, tempClass);
     } else {
       console.log(checkNum)
-      props.blank(checkNum);
+      props.blank(checkNum, tempClass);
     }
   }
 
 
   // console.log(props.check)
   return (
-    <div key={props.check} className={props.bin === 0 ? 'black ' : 'red'} id={props.symbol === 'X' ? 'xClick ' : 'oClick'} onClick={(e) => {handleClick(checkNum, e)}} value={props.check}>
+    <div key={props.i} className={props.bin === 0 ? 'black' : 'red'} id={props.symbol === 'X' ? 'xClick ' : 'oClick'} onClick={(e) => {handleClick(checkNum, e)}} value={props.check}>
         {/* {props.check} */}
 
         {props.symbol}
