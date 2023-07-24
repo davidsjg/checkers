@@ -1,7 +1,12 @@
 import './Checker.css';
 
 function Checker(props) {
-  const checkerboard = ['x','x','x','x'];
+  //props
+  //xClick, oClick, blank = functions
+  //check = its checker value at that time
+  //symbol = board symbol, X or O
+  //bin = binary number, alternates, 0 or 1 
+
 
   // console.log(props.symbol);
   const checkNum = props.check;
@@ -15,15 +20,18 @@ function Checker(props) {
   }
 
   function handleClick(checkNum, e) {
-    //this is number need to send to x and cClick
+    //this is number need to send to xClick and oClick
+    // console.log(checkNum)
+    //know its an x
     console.log(checkNum)
     console.log(e.target.id)
     if(props.symbol === 'X'){
-      props.xClick(e);
+      props.xClick(checkNum);
     } else if (props.symbol === 'O'){ 
-      props.oClick(e);
+      props.oClick(e, checkNum);
     } else {
-      props.blank(e);
+      console.log(checkNum)
+      props.blank(checkNum);
     }
   }
 

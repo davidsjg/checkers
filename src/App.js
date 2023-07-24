@@ -9,20 +9,31 @@ function App() {
   const [curChecker, setCurChecker] = useState(null);
   const [futureChecker, setFutureChecker] = useState();
   const [clickCounter, setClickCounter] = useState(0);
+  const [firstSymbol, setFirstSymbol] = useState();
+  const [masterArray, setMasterArray] = useState(['','O',' ','O',' ','O',' ','O', 
+                                                  'O',' ','O',' ','O',' ', 'O', ' ', 
+                                                  ' ','O',' ','O',' ','O',' ','O',' ',
+                                                  ' ',' ',' ',' ',' ',' ',' ', 
+                                                ' ',' ',' ',' ',' ',' ',' ',' ',
+                                                'X',' ','X',' ','X',' ','X', ' ',
+                                                ' ','X',' ','X','','X',' ', 'X',
+                                                'X',' ','X',' ','X',' ','X', ' '
+ ]);
 
-  const masterArray = ['','O',' ','O',' ','O',' ','O', 
-  'O',' ','O',' ','O',' ', 'O', ' ', 
-  ' ','O',' ','O',' ','O',' ','O',' ',
-  ' ',' ',' ',' ',' ',' ',' ', 
- ' ',' ',' ',' ',' ',' ',' ',' ',
- 'X',' ','X',' ','X',' ','X', ' ',
- ' ','X',' ','X','','X',' ', 'X',
- 'X',' ','X',' ','X',' ','X', ' '
- ];
+//   const masterArray = ['','O',' ','O',' ','O',' ','O', 
+//   'O',' ','O',' ','O',' ', 'O', ' ', 
+//   ' ','O',' ','O',' ','O',' ','O',' ',
+//   ' ',' ',' ',' ',' ',' ',' ', 
+//  ' ',' ',' ',' ',' ',' ',' ',' ',
+//  'X',' ','X',' ','X',' ','X', ' ',
+//  ' ','X',' ','X','','X',' ', 'X',
+//  'X',' ','X',' ','X',' ','X', ' '
+//  ];
 
   useEffect(() => {
     // console.log(masterArray[0])
     setCurChecker(curChecker)
+    setFutureChecker(futureChecker)
   }, [masterArray, curChecker, futureChecker]);
 
   
@@ -38,64 +49,96 @@ function App() {
 
   const binArray = [0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,]
 
-  function xClick(e){
+  function xClick(checkNum){
     // alert('hello x')
-    console.log(e)
-    setCurChecker(e)
+    console.log(checkNum);
+    
     if(clickCounter === 0){
       console.log('first click');
-      setClickCounter(1)
+      setCurChecker(checkNum)
+      setFirstSymbol('X')
     } else if (clickCounter === 1){
-      console.log('second click')
+      console.log('second click');
+      console.log(checkNum)
+      setFutureChecker(checkNum)
+      checkSquares('X', checkNum);
     }
-    setClickCounter(1)
-    if(curChecker === null){
-      setCurChecker(e)
-    } else if (curChecker < 0) {
-      setFutureChecker(e);
-      console.log(curChecker)
-    }
-    checkSquares(e, 'X')
 
-    if(futureChecker - curChecker === 7 || futureChecker - curChecker === 9){
-      alert('valid move')
-    }
+
+    setClickCounter(1);
+
+
   }
 
-  function oClick(e){
+  function oClick(checkNum){
     // alert('hello o')
     if(clickCounter === 0){
       console.log('first click');
       setClickCounter(1)
     } else if (clickCounter === 1){
-      console.log('second click')
+      alert('please click a valid moves')
     }
-    checkSquares(e, 'O')
+    checkSquares('O')
 
-    console.log(e);
+    console.log(checkNum);
   }
-  function blankClick(e){
-    // alert('hello o')
+  function blankClick(checkNum){
     if(clickCounter === 0){
       console.log('first click');
-      setClickCounter(1)
+      setClickCounter(0);
+      alert('please click one of your players')
     } else if (clickCounter === 1){
-      console.log('second click')
+      console.log('second click - in blank');
+      // console.log(checkNum)
+      setFutureChecker(checkNum)
+      checkSquares(checkNum);
+    }
+    var symbol = ' '
+    checkSquares(symbol, checkNum)
+
+    // console.log(checkNum);
+  }
+
+  function checkSquares(symbol, checkNum){
+    console.log(symbol);
+    console.log(curChecker);
+    var moveTo = checkNum;
+
+    console.log(masterArray[curChecker])
+    console.log(masterArray[checkNum])
+    if(curChecker === checkNum){
+      console.log('inside double x')
+      alert('please make a valid move')
       setClickCounter(0)
     }
-    checkSquares(e, 'blank')
 
-    console.log(e);
+    if (firstSymbol === 'X' && symbol === ' '){
+      if(curChecker - moveTo === 7 || curChecker - moveTo === 9){
+        alert('valid move')
+        swapNums(checkNum)
+        //they clicked 2 buttons, now have both values (where they start and where they want to go)
+        //checker numbers also represent index in array
+        //compare the checker numbers, if its a valid move, 
+      }
+    }
+
+
   }
 
-  function checkSquares(e, symbol){
-    console.log(e)
-    console.log(symbol)
-    console.log(curChecker)
-    console.log(futureChecker)
-    if(curChecker - futureChecker === 7 || curChecker - futureChecker === 9){
-      alert('vaid move')
-    }
+  function swapNums(checkNum){
+    const destination = checkNum;
+    const location = curChecker;
+    let newArr = [...masterArray]
+
+    let temp = newArr[location];
+    newArr[location] = newArr[destination];
+    newArr[destination] = temp;
+
+    setMasterArray(newArr);
+
+    setClickCounter(0);
+
+
   }
 
 
