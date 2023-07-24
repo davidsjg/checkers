@@ -37,7 +37,7 @@ function App() {
     setCurChecker(curChecker)
     setFutureChecker(futureChecker)
     setClickCounter(clickCounter)
-  }, [masterArray, curChecker, futureChecker, clickCounter]);
+  }, [masterArray, curChecker, futureChecker, clickCounter, exArray, ohArray]);
 
   
 
@@ -104,6 +104,36 @@ function App() {
 
   }
 
+  function xxClick(checkNum, color) {
+    if(clickCounter === 0){
+      console.log('first click');
+      setCurChecker(checkNum)
+      setFirstSymbol('XX')
+      setClickCounter(1);
+
+    } else if (clickCounter === 1){
+      console.log('second click');
+      console.log(checkNum)
+      setFutureChecker(checkNum)
+      checkSquares('XX', checkNum, color);
+    }  
+  }
+
+  function ooClick(checkNum, color){
+    if(clickCounter === 0){
+      console.log('first click');
+      setCurChecker(checkNum)
+      setFirstSymbol('OO')
+      setClickCounter(1);
+
+    } else if (clickCounter === 1){
+      console.log('second click');
+      console.log(checkNum)
+      setFutureChecker(checkNum)
+      checkSquares('OO', checkNum, color);
+    }  
+  }
+
   function checkSquares(symbol, checkNum, color){
 
     var moveTo = checkNum;
@@ -111,21 +141,12 @@ function App() {
     var futureSym = checkNum;
     var tempColor = color;
 
-    // console.log(masterArray[curChecker])
-    // console.log(masterArray[checkNum])
-    // console.log(curSym === futureSym)
     if((firstSymbol === 'X' && symbol === 'X') || (firstSymbol === 'O' && symbol === 'O')){
       console.log('inside double x')
       alert('please make a valid move')
       swapNums(checkNum)
     }
-    console.log(color)
-    console.log(symbol)
-    console.log(moveTo)
-    console.log(curChecker)
-    if(color === 'black'){
-      console.log('hello black')
-    }
+
     if (firstSymbol === 'X' && symbol === 'b'){
       if(curChecker - moveTo === 7 || curChecker - moveTo === 9){
         // alert('valid move')
@@ -170,10 +191,31 @@ function App() {
         overTakeX(checkNum)
     }
 
-
-
-
-
+    if(firstSymbol === 'XX' && symbol ==='O'){
+      overTakeX(checkNum)
+    }
+    if((firstSymbol === 'XX' && symbol ==='b') && (color !== 'black')){
+      swapNums(checkNum)
+    }
+    if((firstSymbol === 'XX' && symbol ==='b') && (color === 'black')){
+      alert('please pick a valid move')
+    }
+    if(firstSymbol === 'OO' && symbol ==='X'){
+      overTakeO(checkNum)
+    }
+    if((firstSymbol === 'OO' && symbol ==='b') && (color !== 'black')){
+      swapNums(checkNum)
+    }
+    if((firstSymbol === 'OO' && symbol ==='b') && (color === 'black')){
+      alert('please pick a valid move')
+    }
+    if(firstSymbol === 'O' && symbol === 'OO'){
+      overTakeO(checkNum)
+    }
+    if(firstSymbol === 'X' && symbol === 'OO'){
+      console.log('attempting to take OO king')
+      overTakeX(checkNum)
+    }
   }
 
   function swapNums(checkNum){
@@ -197,16 +239,25 @@ function App() {
   }
 
   function overTakeO(checkNum){
-    //destination = X
+    console.log('O just overtook X')
     const destination = checkNum;
     const location = curChecker;
     let newArr = [...masterArray]
 
-    //temp = checker# value in array at curChecker
-    let temp = newArr[destination];
-    newArr[destination] = newArr[location];
-    newArr[location] = ' ';
-    exArray.push('X');
+
+    console.log(checkNum)
+    if(checkNum > 55){
+      let temp = newArr[destination];
+      newArr[destination] = 'OO';
+      newArr[location] = ' ';
+    } else {
+      let temp = newArr[destination];
+      newArr[destination] = newArr[location];
+      newArr[location] = ' ';
+    }
+
+
+    setExArray(oldArray => [...oldArray, 'X'])
 
     setMasterArray(newArr);
 
@@ -214,28 +265,38 @@ function App() {
   }
 
   function overTakeX(checkNum){
-    //destination = X
+    console.log('X just overtook O')
+
     const destination = checkNum;
     const location = curChecker;
     let newArr = [...masterArray]
 
     //temp = checker# value in array at curChecker
-    let temp = newArr[destination];
-    newArr[destination] = newArr[location];
-    newArr[location] = ' ';
+    if(checkNum < 8){
+      let temp = newArr[destination];
+      newArr[destination] = 'XX';
+      newArr[location] = ' ';
+    } else {
+      let temp = newArr[destination];
+      newArr[destination] = newArr[location];
+      newArr[location] = ' ';
+    }
 
-    let tempOarr = [];
-    tempOarr.push('O');
-    setOhArray(tempOarr);
+
+    setOhArray(oldArray => [...oldArray, 'O'])
 
     setMasterArray(newArr);
 
     setClickCounter(0);
   }
 
-  console.log(exArray)
 
   const dispBlackPieces = exArray.map((piece) =>
+      <>
+        {piece}
+      </>
+    )
+  const dispWhitePieces = ohArray.map((piece) =>
       <>
         {piece}
       </>
@@ -254,7 +315,7 @@ function App() {
           return (
             <>
               <div className='testCheck' key={Math.random()}>
-                <Checker key={Math.random()}  xClick={xClick} oClick={oClick} blank={blankClick} check={check} symbol={masterArray[check]} bin={binArray[check]}/>
+                <Checker key={Math.random()} xxClick={xxClick} ooClick={ooClick} xClick={xClick} oClick={oClick} blank={blankClick} check={check} symbol={masterArray[check]} bin={binArray[check]}/>
               </div>
             </>
             )
@@ -262,11 +323,7 @@ function App() {
         }
       </div>
       <div className='xPieces'>
-        {ohArray.map((piece) => {
-          return (
-            {piece}
-          )
-        })}
+        {dispWhitePieces}
       </div>
     </div>
 
