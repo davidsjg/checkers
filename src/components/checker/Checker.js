@@ -14,22 +14,23 @@ function Checker(props) {
     tempStr = 'props.oClick'
   }
 
-  function handleClick(e) {
-    console.log(e)
+  function handleClick(checkNum, e) {
+    //this is number need to send to x and cClick
+    console.log(checkNum)
+    console.log(e.target.id)
     if(props.symbol === 'X'){
-      props.xClick();
+      props.xClick(e);
     } else if (props.symbol === 'O'){ 
-      props.oClick();
+      props.oClick(e);
     } else {
-      console.log('sup')
+      props.blank(e);
     }
   }
 
 
-
   // console.log(props.check)
   return (
-    <div key={props.check} className={props.bin === 0 ? 'black ' : 'red'} id={props.symbol === 'X' ? 'xClick ' : 'oClick'} onClick={() => handleClick(checkNum)}value={props.check}>
+    <div key={props.check} className={props.bin === 0 ? 'black ' : 'red'} id={props.symbol === 'X' ? 'xClick ' : 'oClick'} onClick={(e) => {handleClick(checkNum, e)}} value={props.check}>
         {/* {props.check} */}
 
         {props.symbol}
