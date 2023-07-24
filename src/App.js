@@ -163,7 +163,8 @@ function App() {
     if((firstSymbol === 'X' && symbol === 'X') || (firstSymbol === 'O' && symbol === 'O')){
       console.log('inside double x')
       alert('please make a valid move')
-      swapNums(checkNum)
+      resetClick();
+      // swapNums(checkNum)
     }
 
     if (firstSymbol === 'X' && symbol === 'b'){
@@ -213,10 +214,12 @@ function App() {
       if(moveTo < curChecker){
         alert('please pick a valid move')
         resetClick()
+        return;
       } 
-      if(moveTo > curChecker && color === 'black'){
+      if(color === 'black'){
         alert('please pick a valid move')
         resetClick()
+        return;
       } 
     }
 
@@ -284,9 +287,27 @@ function App() {
     const location = curChecker;
     let newArr = [...masterArray]
 
-    let temp = newArr[location];
-    newArr[location] = newArr[destination];
-    newArr[destination] = temp;
+    if(checkNum < 8){
+      let temp = newArr[checkNum];
+      newArr[checkNum] = 'XX';
+      newArr[curChecker] = ' ';
+    } else if (checkNum > 55) {
+      newArr[checkNum] = 'OO';
+      newArr[curChecker] = ' ';
+    } else if (masterArray[curChecker] === 'O') {
+      let temp = newArr[curChecker];
+      newArr[curChecker] = ' ';
+      newArr[checkNum] = 'O';
+    } else if (masterArray[curChecker] === 'X') {
+      let temp = newArr[curChecker];
+      newArr[curChecker] = ' ';
+      newArr[checkNum] = 'X';
+    }
+
+
+    // let temp = newArr[location];
+    // newArr[location] = newArr[destination];
+    // newArr[destination] = temp;
 
     setMasterArray(newArr);
 
@@ -308,10 +329,21 @@ function App() {
 
     let newArr = [...masterArray]
 
-    let temp = newArr[curChecker];
-    newArr[curChecker] = ' ';
-    newArr[tempNum] = ' '
-    newArr[checkNum] = 'X';
+    // let temp = newArr[curChecker];
+    // newArr[curChecker] = ' ';
+    // newArr[tempNum] = ' '
+    // newArr[checkNum] = 'X';
+    if(checkNum < 8){
+      let temp = newArr[checkNum];
+      newArr[checkNum] = 'XX';
+      newArr[curChecker] = ' ';
+      newArr[tempNum] = ' '
+    } else {
+      let temp = newArr[curChecker];
+      newArr[curChecker] = ' ';
+      newArr[tempNum] = ' '
+      newArr[checkNum] = 'X';
+    }
     setOhArray(oldArray => [...oldArray, 'O'])
     setMasterArray(newArr);
     setClickCounter(0);
