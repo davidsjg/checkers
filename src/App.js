@@ -34,7 +34,8 @@ function App() {
     // console.log(masterArray[0])
     setCurChecker(curChecker)
     setFutureChecker(futureChecker)
-  }, [masterArray, curChecker, futureChecker]);
+    setClickCounter(clickCounter)
+  }, [masterArray, curChecker, futureChecker, clickCounter]);
 
   
 
@@ -52,22 +53,20 @@ function App() {
   function xClick(checkNum){
     // alert('hello x')
     console.log(checkNum);
+    console.log(clickCounter)
     
     if(clickCounter === 0){
       console.log('first click');
       setCurChecker(checkNum)
       setFirstSymbol('X')
+      setClickCounter(1);
+
     } else if (clickCounter === 1){
       console.log('second click');
       console.log(checkNum)
       setFutureChecker(checkNum)
       checkSquares('X', checkNum);
     }
-
-
-    setClickCounter(1);
-
-
   }
 
   function oClick(checkNum){
@@ -82,6 +81,7 @@ function App() {
 
     console.log(checkNum);
   }
+
   function blankClick(checkNum){
     if(clickCounter === 0){
       console.log('first click');
@@ -103,13 +103,16 @@ function App() {
     console.log(symbol);
     console.log(curChecker);
     var moveTo = checkNum;
+    var curSym = symbol;
+    var futureSym = checkNum;
 
     console.log(masterArray[curChecker])
     console.log(masterArray[checkNum])
-    if(curChecker === checkNum){
+    console.log(curSym === futureSym)
+    if(firstSymbol === 'X' && symbol === 'X'){
       console.log('inside double x')
       alert('please make a valid move')
-      setClickCounter(0)
+      swapNums(checkNum)
     }
 
     if (firstSymbol === 'X' && symbol === ' '){
@@ -137,8 +140,12 @@ function App() {
     setMasterArray(newArr);
 
     setClickCounter(0);
+  }
 
-
+  function resetClick(){
+    let newArr = [...masterArray];
+    setMasterArray(newArr);
+    setClickCounter(0);
   }
 
 
