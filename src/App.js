@@ -170,9 +170,6 @@ function App() {
       if(curChecker - moveTo === 7 || curChecker - moveTo === 9){
         // alert('valid move')
         swapNums(checkNum)
-        //they clicked 2 buttons, now have both values (where they start and where they want to go)
-        //checker numbers also represent index in array
-        //compare the checker numbers, if its a valid move, 
       } 
       if(moveTo > curChecker){
         alert('please pick a valid move')
@@ -184,12 +181,18 @@ function App() {
       } 
     }
     if (firstSymbol === 'X' && symbol === 'b'){
+      console.log(curChecker - moveTo)
       if(curChecker - moveTo === 14 || curChecker - moveTo === 18){
+        var myTemp = curChecker - 7;
+        var myTemp2 = curChecker - 9;
+        // if((masterArray[myTemp] !== 'O') || (masterArray[myTemp2] !== 'O') ){
+        //   alert('please pick a valid move')
+        //   resetClick()
+        //   return;
+        // }
         // alert('valid move')
-        jump(checkNum)
-        //they clicked 2 buttons, now have both values (where they start and where they want to go)
-        //checker numbers also represent index in array
-        //compare the checker numbers, if its a valid move, 
+        jumpX(checkNum)
+
       } 
       if(moveTo > curChecker){
         alert('please pick a valid move')
@@ -205,9 +208,31 @@ function App() {
       if(moveTo - curChecker === 7 || moveTo - curChecker === 9){
         // alert('valid move')
         swapNums(checkNum)
-        //they clicked 2 buttons, now have both values (where they start and where they want to go)
-        //checker numbers also represent index in array
-        //compare the checker numbers, if its a valid move, 
+
+      } 
+      if(moveTo < curChecker){
+        alert('please pick a valid move')
+        resetClick()
+      } 
+      if(moveTo > curChecker && color === 'black'){
+        alert('please pick a valid move')
+        resetClick()
+      } 
+    }
+
+    if (firstSymbol === 'O' && symbol === 'b'){
+      console.log(moveTo - curChecker)
+      if(moveTo - curChecker === 14 || moveTo - curChecker === 18){
+        var myTemp = curChecker - 7;
+        var myTemp2 = curChecker - 9;
+        // if((masterArray[myTemp] !== 'O') || (masterArray[myTemp2] !== 'O') ){
+        //   alert('please pick a valid move')
+        //   resetClick()
+        //   return;
+        // }
+        // alert('valid move')
+        jumpO(checkNum)
+
       } 
       if(moveTo < curChecker){
         alert('please pick a valid move')
@@ -270,7 +295,8 @@ function App() {
     setOhTurn((turn) => !turn)
   }
 
-  function jump(checkNum){
+  function jumpX(checkNum){
+    console.log('inside jump')
     var tempNum;
 
     if(curChecker - checkNum === 14){
@@ -280,11 +306,6 @@ function App() {
       tempNum = curChecker - 9;
     }
 
-    console.log(checkNum)
-    console.log(curChecker)
-
-    console.log(tempNum)
-
     let newArr = [...masterArray]
 
     let temp = newArr[curChecker];
@@ -292,6 +313,29 @@ function App() {
     newArr[tempNum] = ' '
     newArr[checkNum] = 'X';
     setOhArray(oldArray => [...oldArray, 'O'])
+    setMasterArray(newArr);
+    setClickCounter(0);
+    setExTurn((turn) => !turn)
+    setOhTurn((turn) => !turn)
+  }
+  function jumpO(checkNum){
+    console.log('inside jump O')
+    var tempNum;
+
+    if(checkNum - curChecker === 14){
+      tempNum = curChecker + 7;
+    }
+    if(checkNum - curChecker === 18){
+      tempNum = curChecker + 9;
+    }
+
+    let newArr = [...masterArray]
+
+    let temp = newArr[curChecker];
+    newArr[curChecker] = ' ';
+    newArr[tempNum] = ' '
+    newArr[checkNum] = 'O';
+    setExArray(oldArray => [...oldArray, 'X'])
     setMasterArray(newArr);
     setClickCounter(0);
     setExTurn((turn) => !turn)
