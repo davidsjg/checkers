@@ -1,0 +1,33 @@
+.black{
+    /* background-color: lightblue; */
+    /* border-style: solid;
+    border-width: 1px;
+    border-color: black; */
+    /* height: 30px;
+    width: 30px; */
+    padding: 40px 30px;
+    height: 8px;
+    background-color: lightgray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    opacity: .5;
+    /* margin: 0px 19px; */
+}
+
+.red{
+    /* background-color: lightblue; */
+    /* border-style: solid;
+    border-width: 1px;
+    border-color: black; */
+    /* height: 30px;
+    width: 30px; */
+    padding: 40px 30px;
+    height: 7px;
+    background-color: red;
+      display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
