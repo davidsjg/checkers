@@ -198,6 +198,27 @@ function App() {
         resetClick()
       } 
     }
+    if (firstSymbol === 'O' && symbol === 'b'){
+      if(moveTo - curChecker === 7 || moveTo - curChecker === 9){
+        // alert('valid move')
+        console.log(checkNum)
+        swapNums(checkNum)
+      } 
+      if(moveTo - curChecker  === 14 || moveTo - curChecker === 18){
+        var myTemp = curChecker - 7;
+        var myTemp2 = curChecker - 9;
+        console.log(checkNum)
+        jumpO(checkNum)
+      } 
+      if(moveTo < curChecker){
+        alert('please pick a valid move')
+        resetClick()
+      } 
+      if(color === 'black'){
+        alert('please pick a valid move')
+        resetClick()
+      } 
+    }
 
     if (firstSymbol === 'XX' && symbol === 'b'){
       if(curChecker - moveTo === 7 || curChecker - moveTo === 9){
@@ -227,6 +248,8 @@ function App() {
         resetClick()
       } 
     }
+
+
     if (firstSymbol === 'OO' && symbol === 'b'){
       if(curChecker - moveTo === 7 || curChecker - moveTo === 9){
         // alert('valid move')
@@ -240,13 +263,13 @@ function App() {
       } 
       if(curChecker - moveTo === 14 || curChecker - moveTo === 18){
         // alert('valid move')
-        jumpXX(checkNum)
+        jumpOO(checkNum)
         return;
       } 
       if(curChecker - moveTo === -14 || curChecker - moveTo === -18){
         // alert('valid move')
         console.log(checkNum)
-        jumpXX(checkNum)
+        jumpOO(checkNum)
         return;
       } 
       if(color === 'black'){
@@ -266,47 +289,47 @@ function App() {
     //   } 
     // }
 
-    if (firstSymbol === 'O' && symbol === 'b'){
-      if(moveTo - curChecker === 7 || moveTo - curChecker === 9){
-        // alert('valid move')
-        swapNums(checkNum)
+    // if (firstSymbol === 'O' && symbol === 'b'){
+    //   if(moveTo - curChecker === 7 || moveTo - curChecker === 9){
+    //     // alert('valid move')
+    //     swapNums(checkNum)
 
-      } 
-      if(moveTo < curChecker){
-        alert('please pick a valid move')
-        resetClick()
-        return;
-      } 
-      if(color === 'black'){
-        alert('please pick a valid move')
-        resetClick()
-        return;
-      } 
-    }
+    //   } 
+    //   if(moveTo < curChecker){
+    //     alert('please pick a valid move')
+    //     resetClick()
+    //     return;
+    //   } 
+    //   if(color === 'black'){
+    //     alert('please pick a valid move')
+    //     resetClick()
+    //     return;
+    //   } 
+    // }
 
-    if (firstSymbol === 'O' && symbol === 'b'){
-      console.log(moveTo - curChecker)
-      if(moveTo - curChecker === 14 || moveTo - curChecker === 18){
-        var myTemp = curChecker - 7;
-        var myTemp2 = curChecker - 9;
-        // if((masterArray[myTemp] !== 'O') || (masterArray[myTemp2] !== 'O') ){
-        //   alert('please pick a valid move')
-        //   resetClick()
-        //   return;
-        // }
-        // alert('valid move')
-        jumpO(checkNum)
+    // if (firstSymbol === 'O' && symbol === 'b'){
+    //   console.log(moveTo - curChecker)
+    //   if(moveTo - curChecker === 14 || moveTo - curChecker === 18){
+    //     var myTemp = curChecker - 7;
+    //     var myTemp2 = curChecker - 9;
+    //     // if((masterArray[myTemp] !== 'O') || (masterArray[myTemp2] !== 'O') ){
+    //     //   alert('please pick a valid move')
+    //     //   resetClick()
+    //     //   return;
+    //     // }
+    //     // alert('valid move')
+    //     jumpO(checkNum)
 
-      } 
-      if(moveTo < curChecker){
-        alert('please pick a valid move')
-        resetClick()
-      } 
-      if(moveTo > curChecker && color === 'black'){
-        alert('please pick a valid move')
-        resetClick()
-      } 
-    }
+    //   } 
+    //   if(moveTo < curChecker){
+    //     alert('please pick a valid move')
+    //     resetClick()
+    //   } 
+    //   if(moveTo > curChecker && color === 'black'){
+    //     alert('please pick a valid move')
+    //     resetClick()
+    //   } 
+    // }
 
     // if(firstSymbol === 'O' && symbol === 'X'){
     //     overTakeO(checkNum)
@@ -356,6 +379,7 @@ function App() {
       newArr[checkNum] = 'XX';
       newArr[curChecker] = ' ';
     } else if (checkNum > 55 && firstSymbol === 'O') {
+      console.log('inside greater than 55')
       newArr[checkNum] = 'OO';
       newArr[curChecker] = ' ';
     }else if (masterArray[curChecker] === 'O') {
@@ -371,7 +395,7 @@ function App() {
       newArr[checkNum] = 'XX';
       console.log('inside xx clicked second time')
     }
-   else if (masterArray[curChecker] === 'OO') {
+    else if (masterArray[curChecker] === 'OO') {
       newArr[curChecker] = ' ';
       newArr[checkNum] = 'OO';
     }
@@ -426,6 +450,12 @@ function App() {
   function jumpO(checkNum){
     console.log('inside jump O')
     var tempNum;
+    //44
+    console.log(curChecker)
+    //58
+    console.log(checkNum)
+    //14
+    console.log(checkNum - curChecker)
 
     if(checkNum - curChecker === 14){
       tempNum = curChecker + 7;
@@ -433,13 +463,22 @@ function App() {
     if(checkNum - curChecker === 18){
       tempNum = curChecker + 9;
     }
+    //51
+    console.log(tempNum)
 
     let newArr = [...masterArray]
 
-    let temp = newArr[curChecker];
-    newArr[curChecker] = ' ';
-    newArr[tempNum] = ' '
-    newArr[checkNum] = 'O';
+    if(checkNum > 55){
+      let temp = newArr[checkNum];
+      newArr[checkNum] = 'OO';
+      newArr[curChecker] = ' ';
+      newArr[tempNum] = ' '
+    } else {
+      let temp = newArr[curChecker];
+      newArr[curChecker] = ' ';
+      newArr[tempNum] = ' '
+      newArr[checkNum] = 'O';
+    }
     setExArray(oldArray => [...oldArray, 'X'])
     setMasterArray(newArr);
     setClickCounter(0);
@@ -480,7 +519,7 @@ function App() {
     setExTurn((turn) => !turn)
     setOhTurn((turn) => !turn)
   }
-  function jumpXX(checkNum) {
+  function jumpOO(checkNum) {
     var tempNum;
 
     console.log(curChecker)
