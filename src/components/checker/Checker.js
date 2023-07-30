@@ -1,4 +1,5 @@
 import './Checker.css';
+import '../xCheck/xCheck.js'
 
 function Checker(props) {
   //props
@@ -45,7 +46,20 @@ function Checker(props) {
     <div key={props.i} className={props.bin === 0 ? 'black' : 'red'} id={props.symbol === 'X' ? 'xClick ' : 'XX' ? 'xxClick' : 'OO' ?  'ooClick' : 'oClick'} onClick={(e) => {handleClick(checkNum, e)}} value={props.check}>
         {/* {props.check} */}
 
-        {props.symbol}
+        {/* {props.symbol} */}
+        {props.symbol === 'X' &&
+        <>
+          <div className='xCheck'>
+          </div>
+        </>
+        }
+        {props.symbol === 'O' &&
+        <>
+        <div className='oCheck'>
+        </div>
+      </>
+        }
+        
     </div>
   );
 }
