@@ -628,12 +628,11 @@ function App() {
 
   return (
     <>
-    <div className='turn'>
-      It is {ohTurn ? 'Os turn' : 'Xs turn'}'s turn
-    </div>
+
     <div className='mainContain' >
       <div className='oPieces'>
-        {dispBlackPieces}
+        <p>WELCOME TO CHECKERS</p>
+
       </div>
       <div className='mainContain2' >
 
@@ -649,9 +648,25 @@ function App() {
           })
         }
       </div>
-      <div className='xPieces'>
-        {dispWhitePieces}
+      
+      <div className='scoreboard'>
+      <div className='turn'>
+      CURRENT TURN: <br/>
+      {ohTurn ? 'Reds turn' : 'Blacks turn'}
+    </div>
+        <p>BLACK DOWN</p>
+        <div className='oScore'>
+          {dispBlackPieces}
+        </div>
+        <p style={{color : 'red'}}>RED DOWN</p>
+        <div className='oScore' style={{color : 'red'}}>
+          {dispWhitePieces}
+        </div>
       </div>
+      {/* <div className='xPieces'>
+        O DOWN
+        {}
+      </div> */}
     </div>
 
 

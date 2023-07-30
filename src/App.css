@@ -6,15 +6,17 @@
   border-style: solid;
   width: 35px;
   height: 35px;
+
 }
 
 .mainContain{
-  margin-top: 0vh;
+  /* margin-top: 0vh; */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 40px;
+  background-image: url('https://images.unsplash.com/photo-1506968430777-bf7784a87f23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
   /* width: 100vw; */
 }
 
@@ -27,13 +29,29 @@
   /* height: 40px; */
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  filter: drop-shadow(0px 10px 15px black);
+  border-radius: 8px black;
+  border-style: solid;
+  
+
 }
 
-.oPieces{
+.scoreboard{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: wheat;
+  text-align: center;
+  width: 200px;
+  margin-left: 20px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  padding-top: 20px;
+}
+
+.oPieces{
+  background-color: wheat;
 }
 
 .xPieces{
@@ -41,4 +59,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: wheat;
+}
+
+.oScore{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: -12px;
 }

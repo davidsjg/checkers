@@ -5,7 +5,7 @@
     border-color: black; */
     /* height: 30px;
     width: 30px; */
-    padding: 40px 30px;
+    padding: 40px 10px;
     height: 8px;
     background-color: darkblue;
     display: flex;
@@ -24,7 +24,8 @@
     border-color: black; */
     /* height: 30px;
     width: 30px; */
-    padding: 40px 30px;
+    /* padding: 40px 30px; */
+    padding: 40px 10px;
     height: 8px;
     background-color: darkorange;
       display: flex;
@@ -40,7 +41,11 @@
   background-image: url('https://cdn0.iconfinder.com/data/icons/board-games-colored-1/48/Games_BoardGames_Artboard_15-512.png');
   background-size: contain;
   filter: drop-shadow(0px 2px 2px black);
+}
 
+.xKing{
+  align-items: center;
+  text-align: center;
 }
 
 .oCheck{

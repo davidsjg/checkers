@@ -8,7 +8,6 @@ function Checker(props) {
   //symbol = board symbol, X or O
   //bin = binary number, alternates, 0 or 1 
 
-
   // console.log(props.symbol);
   const checkNum = props.check;
 
@@ -53,11 +52,33 @@ function Checker(props) {
           </div>
         </>
         }
+        {props.symbol === 'XX' &&
+        <>
+          <div className='xKing'>
+            <div className='xCheck'>
+            👑
+
+             
+            </div> 
+          </div>
+        </>
+        }
         {props.symbol === 'O' &&
         <>
         <div className='oCheck'>
         </div>
       </>
+        }
+        {props.symbol === 'OO' &&
+        <>
+          <div className='xKing'>
+            <div className='oCheck'>
+            👑
+
+             
+            </div> 
+          </div>
+        </>
         }
         
     </div>
