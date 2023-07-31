@@ -19,11 +19,11 @@ function App() {
                                                 ' ','X',' ','X','','X',' ', 'X',
                                                 'X',' ','X',' ','X',' ','X', ' '
  ]);
- const [exArray, setExArray] = useState(['~']);
- const [ohArray, setOhArray] = useState(['~']);
+ const [exArray, setExArray] = useState([]);
+ const [ohArray, setOhArray] = useState([]);
  const [exTurn, setExTurn] = useState(true)
  const [ohTurn, setOhTurn] = useState(false)
- const [turnCount, setTurnCount] = useState();
+ const [firstMove, setFirstMove] = useState(false);
 
  var finalX = [];
  var finalXred = [];
@@ -37,10 +37,12 @@ function App() {
     if(exArray[0] === '~' && exArray.length > 1){
       finalX = exArray.filter((x) => x != '~');
       setExArray(finalX);
+      setFirstMove(true);
     }
     if(ohArray[0] === '~' && ohArray.length > 1){
       finalXred = ohArray.filter((x) => x != '~');
       setOhArray(finalXred);
+      setFirstMove(true);
     }
   }, [masterArray, curChecker, futureChecker, clickCounter, exArray, ohArray]);
 
@@ -561,7 +563,6 @@ function App() {
       <div className='mainContain2' >
 
         {masterArr.map((check, i) => {
-          // console.log(check)
           return (
             <>
               <div className='testCheck' key={Math.random()}>
@@ -580,11 +581,24 @@ function App() {
           </div>
           <p>~BLACK TAKEN~</p>
           <div className='oScore'>
-            {dispBlackPieces}
+            {exArray.length < 1 
+            ? (
+            <>
+              <p className='wheatFill'>sup</p>
+            </>
+            )
+            : dispBlackPieces}
+
           </div>
           <p style={{color : 'red'}}>~RED TAKEN~</p>
           <div className='oScore' style={{color : 'red'}}>
-            {dispWhitePieces}
+          {ohArray.length < 1 
+            ? (
+            <>
+              <p className='wheatFill'>sup</p>
+            </>
+            )
+            : dispWhitePieces}
           </div>
         </div>
       </div>

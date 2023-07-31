@@ -151,3 +151,10 @@
   padding: 0 10px;
   width: 135px;
 }
+
+.wheatFill{
+  color: wheat;
+  background-color: wheat;
+  padding: 0;
+  margin: 0;
+}
