@@ -19,17 +19,29 @@ function App() {
                                                 ' ','X',' ','X','','X',' ', 'X',
                                                 'X',' ','X',' ','X',' ','X', ' '
  ]);
- const [exArray, setExArray] = useState([]);
- const [ohArray, setOhArray] = useState([]);
+ const [exArray, setExArray] = useState(['~']);
+ const [ohArray, setOhArray] = useState(['~']);
  const [exTurn, setExTurn] = useState(true)
  const [ohTurn, setOhTurn] = useState(false)
  const [turnCount, setTurnCount] = useState();
+
+ var finalX = [];
+ var finalXred = [];
 
 
   useEffect(() => {
     setCurChecker(curChecker)
     setFutureChecker(futureChecker)
     setClickCounter(clickCounter)
+
+    if(exArray[0] === '~' && exArray.length > 1){
+      finalX = exArray.filter((x) => x != '~');
+      setExArray(finalX);
+    }
+    if(ohArray[0] === '~' && ohArray.length > 1){
+      finalXred = ohArray.filter((x) => x != '~');
+      setOhArray(finalXred);
+    }
   }, [masterArray, curChecker, futureChecker, clickCounter, exArray, ohArray]);
 
   
@@ -540,8 +552,8 @@ function App() {
       <div className='oPieces'>
         <p>WELCOME TO CHECKERS</p>
         <div className='rules'>
-          <p>Please follow these simple rules to have the best time!</p>
-          <p>-TURN is displayed below-</p>
+          <p>Please follow these simple guidelines to have the best time!</p>
+          <p>-TURN is displayed on right side of page-</p>
           <p>-Click the player you want to move, then click the square you want it to go-</p>
           <p>-No double jumps!😅-</p>
       </div>
@@ -563,7 +575,7 @@ function App() {
     <div className='rightContain'>
       <div className='scoreboard'>
           <div className='turn'>
-           <span>CURRENT TURN </span> <br/>
+           {/* <span>CURRENT TURN </span> <br/> */}
             {ohTurn ? <><p className='redsTurn'>Reds turn </p></>: <><p className='blacksTurn'>Blacks turn </p></>}
           </div>
           <p>~BLACK TAKEN~</p>

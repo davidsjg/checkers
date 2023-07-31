@@ -134,6 +134,8 @@
   justify-content: center;
   display: flex;
   font-size:x-large;
+  padding: 0 10px;
+  width: 135px;
 }
 
 .redsTurn{
@@ -146,4 +148,6 @@
   justify-content: center;
   display: flex;
   font-size:x-large;
+  padding: 0 10px;
+  width: 135px;
 }
