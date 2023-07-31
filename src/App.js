@@ -25,23 +25,11 @@ function App() {
  const [ohTurn, setOhTurn] = useState(false)
  const [turnCount, setTurnCount] = useState();
 
-//   const masterArray = ['','O',' ','O',' ','O',' ','O', 
-//   'O',' ','O',' ','O',' ', 'O', ' ', 
-//   ' ','O',' ','O',' ','O',' ','O',' ',
-//   ' ',' ',' ',' ',' ',' ',' ', 
-//  ' ',' ',' ',' ',' ',' ',' ',' ',
-//  'X',' ','X',' ','X',' ','X', ' ',
-//  ' ','X',' ','X','','X',' ', 'X',
-//  'X',' ','X',' ','X',' ','X', ' '
-//  ];
 
   useEffect(() => {
-    // console.log(masterArray[0])
     setCurChecker(curChecker)
     setFutureChecker(futureChecker)
     setClickCounter(clickCounter)
-    // setOhTurn((turn) => !turn)
-    // setExTurn((turn) => !turn)
   }, [masterArray, curChecker, futureChecker, clickCounter, exArray, ohArray]);
 
   
@@ -175,19 +163,16 @@ function App() {
     if((firstSymbol === 'X' && symbol === 'X') || (firstSymbol === 'O' && symbol === 'O') || (firstSymbol === 'XX' && symbol === 'X') ){
       alert('please make a valid move')
       resetClick();
-      // swapNums(checkNum)
     }
 
     if (firstSymbol === 'X' && symbol === 'b'){
       if(curChecker - moveTo === 7 || curChecker - moveTo === 9){
-        // alert('valid move')
         swapNums(checkNum)
       } 
       if(curChecker - moveTo === 14 || curChecker - moveTo === 18){
         var myTemp = curChecker - 7;
         var myTemp2 = curChecker - 9;
         jumpX(checkNum)
-
       } 
       if(moveTo > curChecker){
         alert('please pick a valid move')
@@ -200,7 +185,7 @@ function App() {
     }
     if (firstSymbol === 'O' && symbol === 'b'){
       if(moveTo - curChecker === 7 || moveTo - curChecker === 9){
-        // alert('valid move')
+        
         console.log(checkNum)
         swapNums(checkNum)
       } 
@@ -222,22 +207,22 @@ function App() {
 
     if (firstSymbol === 'XX' && symbol === 'b'){
       if(curChecker - moveTo === 7 || curChecker - moveTo === 9){
-        // alert('valid move')
+        
         swapNums(checkNum)
         return;
       } 
       if(curChecker - moveTo === -7 || curChecker - moveTo === -9){
-        // alert('valid move')
+        
         swapNums(checkNum)
         return;
       } 
       if(curChecker - moveTo === 14 || curChecker - moveTo === 18){
-        // alert('valid move')
+        
         jumpXX(checkNum)
         return;
       } 
       if(curChecker - moveTo === -14 || curChecker - moveTo === -18){
-        // alert('valid move')
+        
         console.log('xx backwards')
         console.log(checkNum)
         jumpXX(checkNum)
@@ -252,22 +237,22 @@ function App() {
 
     if (firstSymbol === 'OO' && symbol === 'b'){
       if(curChecker - moveTo === 7 || curChecker - moveTo === 9){
-        // alert('valid move')
+        
         swapNums(checkNum)
         return;
       } 
       if(curChecker - moveTo === -7 || curChecker - moveTo === -9){
-        // alert('valid move')
+        
         swapNums(checkNum)
         return;
       } 
       if(curChecker - moveTo === 14 || curChecker - moveTo === 18){
-        // alert('valid move')
+        
         jumpOO(checkNum)
         return;
       } 
       if(curChecker - moveTo === -14 || curChecker - moveTo === -18){
-        // alert('valid move')
+        
         console.log(checkNum)
         jumpOO(checkNum)
         return;
@@ -277,80 +262,13 @@ function App() {
         resetClick()
       } 
     }
-    // if (firstSymbol === 'XX' && symbol === 'b'){
-
-    //   // if(moveTo > curChecker){
-    //   //   alert('please pick a valid move')
-    //   //   resetClick()
-    //   // } 
-    //   if(color === 'black'){
-    //     alert('please pick a valid move')
-    //     resetClick()
-    //   } 
-    // }
-
-    // if (firstSymbol === 'O' && symbol === 'b'){
-    //   if(moveTo - curChecker === 7 || moveTo - curChecker === 9){
-    //     // alert('valid move')
-    //     swapNums(checkNum)
-
-    //   } 
-    //   if(moveTo < curChecker){
-    //     alert('please pick a valid move')
-    //     resetClick()
-    //     return;
-    //   } 
-    //   if(color === 'black'){
-    //     alert('please pick a valid move')
-    //     resetClick()
-    //     return;
-    //   } 
-    // }
-
-    // if (firstSymbol === 'O' && symbol === 'b'){
-    //   console.log(moveTo - curChecker)
-    //   if(moveTo - curChecker === 14 || moveTo - curChecker === 18){
-    //     var myTemp = curChecker - 7;
-    //     var myTemp2 = curChecker - 9;
-    //     // if((masterArray[myTemp] !== 'O') || (masterArray[myTemp2] !== 'O') ){
-    //     //   alert('please pick a valid move')
-    //     //   resetClick()
-    //     //   return;
-    //     // }
-    //     // alert('valid move')
-    //     jumpO(checkNum)
-
-    //   } 
-    //   if(moveTo < curChecker){
-    //     alert('please pick a valid move')
-    //     resetClick()
-    //   } 
-    //   if(moveTo > curChecker && color === 'black'){
-    //     alert('please pick a valid move')
-    //     resetClick()
-    //   } 
-    // }
-
-    // if(firstSymbol === 'O' && symbol === 'X'){
-    //     overTakeO(checkNum)
-    // }
-
-    // if(firstSymbol === 'X' && symbol === 'O'){
-    //     overTakeX(checkNum)
-    // }
-
-    // if(firstSymbol === 'XX' && symbol ==='O'){
-    //   overTakeX(checkNum)
-    // }
+    
     if((firstSymbol === 'XX' && symbol ==='b') && (color !== 'black')){
       swapNums(checkNum)
     }
     if((firstSymbol === 'XX' && symbol ==='b') && (color === 'black')){
       alert('please pick a valid move')
     }
-    // if(firstSymbol === 'OO' && symbol ==='X'){
-    //   overTakeO(checkNum)
-    // }
     if((firstSymbol === 'OO' && symbol ==='b') && (color !== 'black')){
       swapNums(checkNum)
     }
@@ -400,17 +318,10 @@ function App() {
       newArr[checkNum] = 'OO';
     }
 
-    // let temp = newArr[location];
-    // newArr[location] = newArr[destination];
-    // newArr[destination] = temp;
-    console.log(exTurn)
-    console.log(ohTurn)
     setMasterArray(newArr);
     setClickCounter(0);
     setExTurn((turn) => !turn)
     setOhTurn((turn) => !turn)
-
-
   }
 
   function jumpX(checkNum){
@@ -426,10 +337,6 @@ function App() {
 
     let newArr = [...masterArray]
 
-    // let temp = newArr[curChecker];
-    // newArr[curChecker] = ' ';
-    // newArr[tempNum] = ' '
-    // newArr[checkNum] = 'X';
     if(checkNum < 8){
       let temp = newArr[checkNum];
       newArr[checkNum] = 'XX';
@@ -441,7 +348,7 @@ function App() {
       newArr[tempNum] = ' '
       newArr[checkNum] = 'X';
     }
-    setOhArray(oldArray => [...oldArray, 'O'])
+    setOhArray(oldArray => [...oldArray, 'X'])
     setMasterArray(newArr);
     setClickCounter(0);
     setExTurn((turn) => !turn)
@@ -513,7 +420,7 @@ function App() {
 
     console.log(newArr[tempNum])
       
-    setOhArray(oldArray => [...oldArray, 'O'])
+    setOhArray(oldArray => [...oldArray, 'X'])
     setMasterArray(newArr);
     setClickCounter(0);
     setExTurn((turn) => !turn)
@@ -605,7 +512,7 @@ function App() {
     }
 
 
-    setOhArray(oldArray => [...oldArray, 'O'])
+    setOhArray(oldArray => [...oldArray, 'X'])
 
     setMasterArray(newArr);
 
@@ -632,7 +539,12 @@ function App() {
     <div className='mainContain' >
       <div className='oPieces'>
         <p>WELCOME TO CHECKERS</p>
-
+        <div className='rules'>
+          <p>Please follow these simple rules to have the best time!</p>
+          <p>-TURN is displayed below-</p>
+          <p>-Click the player you want to move, then click the square you want it to go-</p>
+          <p>-No double jumps!😅-</p>
+      </div>
       </div>
       <div className='mainContain2' >
 
@@ -648,25 +560,22 @@ function App() {
           })
         }
       </div>
-      
+    <div className='rightContain'>
       <div className='scoreboard'>
-      <div className='turn'>
-      CURRENT TURN: <br/>
-      {ohTurn ? 'Reds turn' : 'Blacks turn'}
-    </div>
-        <p>BLACK DOWN</p>
-        <div className='oScore'>
-          {dispBlackPieces}
-        </div>
-        <p style={{color : 'red'}}>RED DOWN</p>
-        <div className='oScore' style={{color : 'red'}}>
-          {dispWhitePieces}
+          <div className='turn'>
+           <span>CURRENT TURN </span> <br/>
+            {ohTurn ? <><p className='redsTurn'>Reds turn </p></>: <><p className='blacksTurn'>Blacks turn </p></>}
+          </div>
+          <p>~BLACK TAKEN~</p>
+          <div className='oScore'>
+            {dispBlackPieces}
+          </div>
+          <p style={{color : 'red'}}>~RED TAKEN~</p>
+          <div className='oScore' style={{color : 'red'}}>
+            {dispWhitePieces}
+          </div>
         </div>
       </div>
-      {/* <div className='xPieces'>
-        O DOWN
-        {}
-      </div> */}
     </div>
 
 
